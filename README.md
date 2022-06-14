@@ -6,10 +6,6 @@
 ```sh
 $ python3 -m venv venv
 $ venv/bin/pip install -r requirements.txt 
-
-$ cat ddl.sql | sqlite3 sql_app.db
-$ echo '.tables' | sqlite3 sql_app.db
-user
 ```
 
 ### Start 

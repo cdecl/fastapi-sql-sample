@@ -5,10 +5,13 @@ from datetime import datetime
 from pydantic import BaseModel
 
 from sqlalchemy.orm import Session
-from database import get_db, metadata, engine
+from database import get_db, engine
 import models
 
 app = FastAPI()
+
+# create table : ddl
+models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 async def root():
@@ -29,12 +32,10 @@ async def add(u: User, db: Session = Depends(get_db)):
     try:
         user = jsonable_encoder(u)
         dbuser = models.User(**user)
-        db.add(dbuser)
+        db.merge(dbuser)
         db.commit()
     except Exception as e:
         pass
-
     return { 'r': 'ok', 'd': user}
-
 
 
