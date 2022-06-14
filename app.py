@@ -3,15 +3,12 @@ from fastapi import FastAPI, Depends
 from fastapi.encoders import jsonable_encoder
 from datetime import datetime
 from pydantic import BaseModel
-import logging as log
 
 from sqlalchemy.orm import Session
 from database import get_db, metadata, engine
 import models
 
 app = FastAPI()
-log.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
 
 @app.get("/")
 async def root():
@@ -35,8 +32,8 @@ async def add(u: User, db: Session = Depends(get_db)):
         db.add(dbuser)
         db.commit()
     except Exception as e:
-        log.error(e)
-        # print(e)
+        pass
+
     return { 'r': 'ok', 'd': user}
 
 
