@@ -14,7 +14,7 @@ app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
-async def root():
+def root():
     dt = datetime.now()
     return { "hello" : dt }
 
@@ -23,12 +23,12 @@ class User(BaseModel):
     name: str
 
 @app.get("/select")
-async def select(db: Session = Depends(get_db)):
+def select(db: Session = Depends(get_db)):
     cur = db.query(models.User).all()
     return { 'r': cur }
 
 @app.get("/add")
-async def add(u: User, db: Session = Depends(get_db)):
+def add(u: User, db: Session = Depends(get_db)):
     try:
         user = jsonable_encoder(u)
         dbuser = models.User(**user)
