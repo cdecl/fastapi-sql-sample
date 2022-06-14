@@ -1,0 +1,16 @@
+
+
+GET http://localhost:8000
+
+
+###
+
+GET http://localhost:8000/select
+Content-Type: application/json
+
+###
+
+GET http://localhost:8000/add
+Content-Type: application/json
+
+{ "id": 4, "name": "cafe" }
